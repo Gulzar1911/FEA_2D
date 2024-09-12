@@ -1,0 +1,55 @@
+# encoding: utf-8
+# 2023 R2
+SetScriptVersion(Version="23.2.142")
+template1 = GetTemplate(
+    TemplateName="Static Structural",
+    Solver="ANSYS")
+system1 = template1.CreateSystem()
+engineeringData1 = system1.GetContainer(ComponentName="Engineering Data")
+matl1 = engineeringData1.CreateMaterial(Name="bar material")
+matl1.SetSuppression(Suppressed=True)
+matl1.SetSuppression(Suppressed=False)
+material1 = engineeringData1.GetMaterial(Name="Structural Steel")
+material1.SetSuppression(Suppressed=True)
+geometry1 = system1.GetContainer(ComponentName="Geometry")
+geometry1.Edit(IsDiscoveryGeometry=True)
+geometry1.Edit(IsDiscoveryGeometry=True)
+template2 = GetTemplate(TemplateName="EngData")
+system2 = template2.CreateSystem(
+    Position="Right",
+    RelativeTo=system1)
+material1.SetSuppression(Suppressed=False)
+matl1.Delete()
+favorites1 = EngData.LoadFavoriteItems()
+library1 = EngData.OpenLibrary(
+    Name="General Materials",
+    Source="General_Materials.xml")
+EngData.EnableFilter(Enable=False)
+matl2 = engineeringData1.CreateMaterial(Name="material")
+EngData.EnableFilter()
+matlProp1 = matl2.CreateProperty(
+    Name="Elasticity",
+    Behavior="Isotropic",
+    Qualifiers={"Definition": "", "Behavior": "Isotropic"})
+matlProp1.SetData(
+    Index=-1,
+    Variables=["Young's Modulus"],
+    Values=[["40000000000 [Pa]"]])
+matlProp1.SetData(
+    Variables=["Poisson's Ratio"],
+    Values=[["0.3"]])
+matl2.SetSuppression(Suppressed=True)
+matl2.SetSuppression(Suppressed=False)
+material1.Delete()
+geometry1.Edit(IsDiscoveryGeometry=True)
+geometry1.Exit()
+system2.Delete()
+geometry1.Edit()
+modelComponent1 = system1.GetComponent(Name="Model")
+modelComponent1.Refresh()
+model1 = system1.GetContainer(ComponentName="Model")
+model1.Edit()
+geometry1.Exit()
+matl2.SetSuppression(Suppressed=True)
+model1.Exit()
+Save(Overwrite=True)

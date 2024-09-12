@@ -1,0 +1,12 @@
+﻿# 
+# This file contains the parameter values of the Design Points successfully updated by Ansys Workbench.
+# Project name: project1
+# Creation date: 01/22/2024 14:20:31
+# 
+# 01/22/2024 14:20:31
+# The parameters defined in the project are:
+# ,P1 - Solid Assignment,P2 - Solid 
+# 
+# The following header line defines the name of the columns by reference to the parameters.
+Name,P1,P2
+DP 0,material,0
